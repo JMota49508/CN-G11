@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="grpcContract" />
+        <module name="forumClientApp" />
+        <module name="grpcServerApp" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="forumClientApp" target="11" />
+      <module name="grpcClientApp (1)" target="11" />
+      <module name="grpcContract" target="11" />
+      <module name="grpcContract (1)" target="11" />
+      <module name="grpcServerApp" target="11" />
+      <module name="grpcServerApp (1)" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

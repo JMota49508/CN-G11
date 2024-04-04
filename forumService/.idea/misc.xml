@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/grpcContract/pom.xml" />
+        <option value="$PROJECT_DIR$/grpcClientApp/pom.xml" />
+        <option value="$PROJECT_DIR$/grpcServerApp/pom.xml" />
+        <option value="$PROJECT_DIR$/forumContract/pom.xml" />
+        <option value="$PROJECT_DIR$/grpcForum/forumContract/pom.xml" />
+        <option value="$PROJECT_DIR$/grpcForum/forumServerApp/pom.xml" />
+        <option value="$PROJECT_DIR$/grpcService/grpcClientApp/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/grpcService/grpcServerApp/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="openjdk-21" project-jdk-type="JavaSDK" />
+</project>

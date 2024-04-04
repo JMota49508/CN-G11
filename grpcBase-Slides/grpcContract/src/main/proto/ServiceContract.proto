@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "servicestubs";
+
+package grpcservice; // package do proto
+
+// Service contract operations 
+service Service {
+  // ping server for testing service availability
+  rpc isAlive(ProtoVoid) returns (TextMessage);
+  // get first N even numbers 2,...,K
+  rpc getEvenNumbers(IntNumber) returns (stream IntNumber);
+  // add a sequence of numbers, ex: 1,2,10,5 = 18
+  rpc addSeqOfNumbers (stream IntNumber) returns (IntNumber);
+  // multiple add operations using a bidirectional stream
+  rpc multipleAdd(stream AddOperands) returns (stream AddResult);
+  // find prime numbers in a given interval
+  rpc findPrimes(IntervalNumbers) returns (stream IntNumber);
+}
+
+message ProtoVoid {}
+
+message TextMessage {string txt = 1;}
+
+message IntNumber {int32 intnumber = 1;}
+
+message AddOperands {
+  string addID = 1;
+  int32 op1 = 2;
+  int32 op2 = 3;
+}
+
+message AddResult {
+  string addID = 1;
+  int32 result = 2;
+}
+
+message IntervalNumbers {
+  int32 start = 1;
+  int32 end = 2;
+}
