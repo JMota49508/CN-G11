@@ -78,7 +78,13 @@ public class Client {
     static void getImageLabelsCall() {
         Scanner scanner = new Scanner(System.in);
         String docID = read("Enter the document ID to get the labels", scanner);
-
+        ImageLabels labels = blockingStub
+                .getImageLabels(
+                        TextMessage
+                        .newBuilder()
+                        .setTxt(docID)
+                        .build()
+        );
 
     }
 
@@ -87,8 +93,12 @@ public class Client {
         String initDate = read("Enter the initial date with format (dd/mm/yyyy): ", scanner);
         String finalDate = read("Enter the final date with format (dd/mm/yyyy): ", scanner);
         String label = read("Enter a label: ", scanner);
-        DatesAndLabel dal = DatesAndLabel.newBuilder().setLabel(label).setFinalDate(finalDate).setInitDate(initDate).build();
-        ImageNames images = blockingStub.getNamesFromDateAndLabel(dal);
+        ImageNames images = blockingStub.getNamesFromDateAndLabel(DatesAndLabel.
+                newBuilder().
+                setLabel(label).
+                setFinalDate(finalDate)
+                .setInitDate(initDate).build()
+        );
     }
 
     static void downloadImageCall() {
