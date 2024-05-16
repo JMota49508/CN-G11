@@ -1,4 +1,4 @@
-package grpcclientapp.operations.services;
+package grpcserverapp;
 
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;

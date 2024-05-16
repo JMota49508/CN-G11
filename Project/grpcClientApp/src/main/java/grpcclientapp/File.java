@@ -5,13 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 public class File {
-    String name;
-    public byte[] bytes;
-    public String contentType;
+    public String id;
+    public String name;
+    public Date creationDate;
+    public List<String> labels;
 
-    public File(String name, byte[] bytes, String contentType) {
-        this.name = name;
-        this.bytes = bytes;
-        this.contentType = contentType;
-    }
+    public File() {}
 }

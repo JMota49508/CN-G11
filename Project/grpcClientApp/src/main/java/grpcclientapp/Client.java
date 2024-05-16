@@ -1,14 +1,20 @@
 package grpcclientapp;
 
 import com.google.protobuf.ByteString;
-import grpcclientapp.operations.File;
-import grpcclientapp.operations.Operations;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.stub.StreamObserver;
 import servicestubs.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Client {
@@ -17,8 +23,7 @@ public class Client {
     private static int svcPort = 8000;
     private static ManagedChannel channel;
     private static ServiceGrpc.ServiceBlockingStub blockingStub;
-    private static ServiceGrpc.ServiceStub noBlockStub;
-    private static Operations service = new Operations();
+    private final static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         try {
@@ -34,7 +39,6 @@ public class Client {
                     .usePlaintext()
                     .build();
             blockingStub = ServiceGrpc.newBlockingStub(channel);
-            noBlockStub = ServiceGrpc.newStub(channel);
             // Call service operations for example ping server
             boolean end = false;
             while (!end) {
@@ -63,6 +67,7 @@ public class Client {
                 }
             }
             read("prima enter to end", new Scanner(System.in));
+            System.exit(0);
         } catch (Exception ex) {
             System.out.println("Unhandled exception");
             ex.printStackTrace();
@@ -70,46 +75,71 @@ public class Client {
     }
 
     static void submitFileCall() throws IOException {
-        //ping server
-        Scanner scanner = new Scanner(System.in);
         String fileName = read("Enter the name of the file you want to upload: ", scanner);
-        File fileBytes = service.readFileBytes(fileName);
-        var x = blockingStub.submitFile(InputFile.newBuilder()
-                .setImage(ByteString.copyFrom(fileBytes.bytes))
+        SimpleFile fileBytes = readFileBytes(fileName);
+        TextMessage blobId = blockingStub.submitFile(InputFile.newBuilder()
+                .setFile(ByteString.copyFrom(fileBytes.bytes))
                 .setContentType(fileBytes.contentType)
                 .setFileName(fileName)
                 .build()
         );
+        System.out.println("File was submitted successfully!");
+        System.out.println("File Id: " + blobId.getTxt());
     }
 
     static void getImageLabelsCall() {
-        Scanner scanner = new Scanner(System.in);
         String docID = read("Enter the document ID to get the labels", scanner);
-        ImageLabels labels = blockingStub
-                .getImageLabels(
-                        TextMessage
+        FileLabels labels = blockingStub
+                .getImageLabels(TextMessage
                         .newBuilder()
                         .setTxt(docID)
                         .build()
-        );
-
+                );
+        System.out.println("Labels of the document:");
+        for (int i = 0; i < labels.getLabelsCount(); i++) {
+            System.out.println("- " + labels.getLabels(i));
+        }
     }
 
-    static void getNamesFromDateAndLabelCall() throws InterruptedException {
-        Scanner scanner = new Scanner(System.in);
+    static void getNamesFromDateAndLabelCall() {
         String initDate = read("Enter the initial date with format (dd/mm/yyyy): ", scanner);
         String finalDate = read("Enter the final date with format (dd/mm/yyyy): ", scanner);
         String label = read("Enter a label: ", scanner);
-        ImageNames images = blockingStub.getNamesFromDateAndLabel(DatesAndLabel.
-                newBuilder().
-                setLabel(label).
-                setFinalDate(finalDate)
+        FileNames names = blockingStub.getNamesFromDateAndLabel(DatesAndLabel
+                .newBuilder()
+                .setLabel(label)
+                .setFinalDate(finalDate)
                 .setInitDate(initDate).build()
         );
+        System.out.println("Images uploaded between " + initDate + " and " + finalDate + " with label '" + label + "':");
+        for (int i = 0; i < names.getNamesCount(); i++) {
+            System.out.println("- " + names.getNames(i));
+        }
     }
 
     static void downloadImageCall() {
-
+        String blobId = read("Enter the ID of the file you want to download: ", scanner);
+        String absFileName = read("What is the file pathname for downloading the Blob: ", scanner);
+        DownloadedFile file = blockingStub.downloadFile(TextMessage
+                .newBuilder()
+                .setTxt(blobId)
+                .build()
+        );
+        Path downloadTo = Paths.get(absFileName);
+        try {
+            PrintStream writeTo = new PrintStream(Files.newOutputStream(downloadTo));
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(file.getFile().toByteArray());
+            ReadableByteChannel reader = Channels.newChannel(byteArrayInputStream);
+            WritableByteChannel channel = Channels.newChannel(writeTo);
+            ByteBuffer bytes = ByteBuffer.allocate(64 * 1024);
+            while (reader.read(bytes) > 0) {
+                bytes.flip();
+                channel.write(bytes);
+                bytes.clear();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private static int Menu() {
@@ -122,7 +152,7 @@ public class Client {
             System.out.println(" 2 - Get Image Labels");
             System.out.println(" 3 - Get Image Name by Date and Label");
             System.out.println(" 4 - Download Image");
-            System.out.println(" 0 - Exit");
+            System.out.println(" 99 - Exit");
             System.out.println();
             System.out.println("Choose an Option");
             op = scan.nextInt();
@@ -133,5 +163,12 @@ public class Client {
     private static String read(String msg, Scanner input) {
         System.out.println(msg);
         return input.nextLine();
+    }
+
+    private static SimpleFile readFileBytes(String fileName) throws IOException {
+        Path path = Paths.get(fileName);
+        String contentType = Files.probeContentType(path);
+        byte[] input = Files.readAllBytes(path);
+        return new SimpleFile(fileName, input, contentType);
     }
 }
