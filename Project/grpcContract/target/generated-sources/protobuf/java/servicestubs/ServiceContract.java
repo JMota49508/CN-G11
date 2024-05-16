@@ -25,25 +25,25 @@ public final class ServiceContract {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_grpcservice_InputFile_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_grpcservice_ImageLabels_descriptor;
+    internal_static_grpcservice_FileLabels_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_grpcservice_ImageLabels_fieldAccessorTable;
+      internal_static_grpcservice_FileLabels_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_grpcservice_ImageNames_descriptor;
+    internal_static_grpcservice_FileNames_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_grpcservice_ImageNames_fieldAccessorTable;
+      internal_static_grpcservice_FileNames_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_grpcservice_DatesAndLabel_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_grpcservice_DatesAndLabel_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_grpcservice_Image_descriptor;
+    internal_static_grpcservice_DownloadedFile_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_grpcservice_Image_fieldAccessorTable;
+      internal_static_grpcservice_DownloadedFile_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -54,20 +54,21 @@ public final class ServiceContract {
   static {
     java.lang.String[] descriptorData = {
       "\n\025ServiceContract.proto\022\013grpcservice\"\032\n\013" +
-      "TextMessage\022\013\n\003txt\030\001 \001(\t\"A\n\tInputFile\022\023\n" +
-      "\013contentType\030\001 \001(\t\022\r\n\005image\030\002 \001(\014\022\020\n\010fil" +
-      "eName\030\003 \001(\t\"\035\n\013ImageLabels\022\016\n\006labels\030\001 \003" +
-      "(\t\"\033\n\nImageNames\022\r\n\005names\030\001 \003(\t\"C\n\rDates" +
-      "AndLabel\022\020\n\010initDate\030\001 \001(\t\022\021\n\tfinalDate\030" +
-      "\002 \001(\t\022\r\n\005label\030\003 \001(\t\"\026\n\005Image\022\r\n\005image\030\001" +
-      " \001(\0142\237\002\n\007Service\022>\n\nsubmitFile\022\026.grpcser" +
-      "vice.InputFile\032\030.grpcservice.TextMessage" +
-      "\022D\n\016getImageLabels\022\030.grpcservice.TextMes" +
-      "sage\032\030.grpcservice.ImageLabels\022O\n\030getNam" +
-      "esFromDateAndLabel\022\032.grpcservice.DatesAn" +
-      "dLabel\032\027.grpcservice.ImageNames\022=\n\rdownl" +
-      "oadImage\022\030.grpcservice.TextMessage\032\022.grp" +
-      "cservice.ImageB\020\n\014servicestubsP\001b\006proto3"
+      "TextMessage\022\013\n\003txt\030\001 \001(\t\"@\n\tInputFile\022\023\n" +
+      "\013contentType\030\001 \001(\t\022\014\n\004file\030\002 \001(\014\022\020\n\010file" +
+      "Name\030\003 \001(\t\"\034\n\nFileLabels\022\016\n\006labels\030\001 \003(\t" +
+      "\"\032\n\tFileNames\022\r\n\005names\030\001 \003(\t\"C\n\rDatesAnd" +
+      "Label\022\020\n\010initDate\030\001 \001(\t\022\021\n\tfinalDate\030\002 \001" +
+      "(\t\022\r\n\005label\030\003 \001(\t\"\036\n\016DownloadedFile\022\014\n\004f" +
+      "ile\030\001 \001(\0142\245\002\n\007Service\022>\n\nsubmitFile\022\026.gr" +
+      "pcservice.InputFile\032\030.grpcservice.TextMe" +
+      "ssage\022C\n\016getImageLabels\022\030.grpcservice.Te" +
+      "xtMessage\032\027.grpcservice.FileLabels\022N\n\030ge" +
+      "tNamesFromDateAndLabel\022\032.grpcservice.Dat" +
+      "esAndLabel\032\026.grpcservice.FileNames\022E\n\014do" +
+      "wnloadFile\022\030.grpcservice.TextMessage\032\033.g" +
+      "rpcservice.DownloadedFileB\020\n\014servicestub" +
+      "sP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -84,18 +85,18 @@ public final class ServiceContract {
     internal_static_grpcservice_InputFile_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpcservice_InputFile_descriptor,
-        new java.lang.String[] { "ContentType", "Image", "FileName", });
-    internal_static_grpcservice_ImageLabels_descriptor =
+        new java.lang.String[] { "ContentType", "File", "FileName", });
+    internal_static_grpcservice_FileLabels_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_grpcservice_ImageLabels_fieldAccessorTable = new
+    internal_static_grpcservice_FileLabels_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_grpcservice_ImageLabels_descriptor,
+        internal_static_grpcservice_FileLabels_descriptor,
         new java.lang.String[] { "Labels", });
-    internal_static_grpcservice_ImageNames_descriptor =
+    internal_static_grpcservice_FileNames_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_grpcservice_ImageNames_fieldAccessorTable = new
+    internal_static_grpcservice_FileNames_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_grpcservice_ImageNames_descriptor,
+        internal_static_grpcservice_FileNames_descriptor,
         new java.lang.String[] { "Names", });
     internal_static_grpcservice_DatesAndLabel_descriptor =
       getDescriptor().getMessageTypes().get(4);
@@ -103,12 +104,12 @@ public final class ServiceContract {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_grpcservice_DatesAndLabel_descriptor,
         new java.lang.String[] { "InitDate", "FinalDate", "Label", });
-    internal_static_grpcservice_Image_descriptor =
+    internal_static_grpcservice_DownloadedFile_descriptor =
       getDescriptor().getMessageTypes().get(5);
-    internal_static_grpcservice_Image_fieldAccessorTable = new
+    internal_static_grpcservice_DownloadedFile_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_grpcservice_Image_descriptor,
-        new java.lang.String[] { "Image", });
+        internal_static_grpcservice_DownloadedFile_descriptor,
+        new java.lang.String[] { "File", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

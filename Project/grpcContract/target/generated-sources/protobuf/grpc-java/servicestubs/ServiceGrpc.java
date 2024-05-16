@@ -50,28 +50,28 @@ public final class ServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<servicestubs.TextMessage,
-      servicestubs.ImageLabels> getGetImageLabelsMethod;
+      servicestubs.FileLabels> getGetImageLabelsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "getImageLabels",
       requestType = servicestubs.TextMessage.class,
-      responseType = servicestubs.ImageLabels.class,
+      responseType = servicestubs.FileLabels.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<servicestubs.TextMessage,
-      servicestubs.ImageLabels> getGetImageLabelsMethod() {
-    io.grpc.MethodDescriptor<servicestubs.TextMessage, servicestubs.ImageLabels> getGetImageLabelsMethod;
+      servicestubs.FileLabels> getGetImageLabelsMethod() {
+    io.grpc.MethodDescriptor<servicestubs.TextMessage, servicestubs.FileLabels> getGetImageLabelsMethod;
     if ((getGetImageLabelsMethod = ServiceGrpc.getGetImageLabelsMethod) == null) {
       synchronized (ServiceGrpc.class) {
         if ((getGetImageLabelsMethod = ServiceGrpc.getGetImageLabelsMethod) == null) {
           ServiceGrpc.getGetImageLabelsMethod = getGetImageLabelsMethod =
-              io.grpc.MethodDescriptor.<servicestubs.TextMessage, servicestubs.ImageLabels>newBuilder()
+              io.grpc.MethodDescriptor.<servicestubs.TextMessage, servicestubs.FileLabels>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getImageLabels"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   servicestubs.TextMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  servicestubs.ImageLabels.getDefaultInstance()))
+                  servicestubs.FileLabels.getDefaultInstance()))
               .setSchemaDescriptor(new ServiceMethodDescriptorSupplier("getImageLabels"))
               .build();
         }
@@ -81,28 +81,28 @@ public final class ServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<servicestubs.DatesAndLabel,
-      servicestubs.ImageNames> getGetNamesFromDateAndLabelMethod;
+      servicestubs.FileNames> getGetNamesFromDateAndLabelMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "getNamesFromDateAndLabel",
       requestType = servicestubs.DatesAndLabel.class,
-      responseType = servicestubs.ImageNames.class,
+      responseType = servicestubs.FileNames.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<servicestubs.DatesAndLabel,
-      servicestubs.ImageNames> getGetNamesFromDateAndLabelMethod() {
-    io.grpc.MethodDescriptor<servicestubs.DatesAndLabel, servicestubs.ImageNames> getGetNamesFromDateAndLabelMethod;
+      servicestubs.FileNames> getGetNamesFromDateAndLabelMethod() {
+    io.grpc.MethodDescriptor<servicestubs.DatesAndLabel, servicestubs.FileNames> getGetNamesFromDateAndLabelMethod;
     if ((getGetNamesFromDateAndLabelMethod = ServiceGrpc.getGetNamesFromDateAndLabelMethod) == null) {
       synchronized (ServiceGrpc.class) {
         if ((getGetNamesFromDateAndLabelMethod = ServiceGrpc.getGetNamesFromDateAndLabelMethod) == null) {
           ServiceGrpc.getGetNamesFromDateAndLabelMethod = getGetNamesFromDateAndLabelMethod =
-              io.grpc.MethodDescriptor.<servicestubs.DatesAndLabel, servicestubs.ImageNames>newBuilder()
+              io.grpc.MethodDescriptor.<servicestubs.DatesAndLabel, servicestubs.FileNames>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getNamesFromDateAndLabel"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   servicestubs.DatesAndLabel.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  servicestubs.ImageNames.getDefaultInstance()))
+                  servicestubs.FileNames.getDefaultInstance()))
               .setSchemaDescriptor(new ServiceMethodDescriptorSupplier("getNamesFromDateAndLabel"))
               .build();
         }
@@ -112,34 +112,34 @@ public final class ServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<servicestubs.TextMessage,
-      servicestubs.Image> getDownloadImageMethod;
+      servicestubs.DownloadedFile> getDownloadFileMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "downloadImage",
+      fullMethodName = SERVICE_NAME + '/' + "downloadFile",
       requestType = servicestubs.TextMessage.class,
-      responseType = servicestubs.Image.class,
+      responseType = servicestubs.DownloadedFile.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<servicestubs.TextMessage,
-      servicestubs.Image> getDownloadImageMethod() {
-    io.grpc.MethodDescriptor<servicestubs.TextMessage, servicestubs.Image> getDownloadImageMethod;
-    if ((getDownloadImageMethod = ServiceGrpc.getDownloadImageMethod) == null) {
+      servicestubs.DownloadedFile> getDownloadFileMethod() {
+    io.grpc.MethodDescriptor<servicestubs.TextMessage, servicestubs.DownloadedFile> getDownloadFileMethod;
+    if ((getDownloadFileMethod = ServiceGrpc.getDownloadFileMethod) == null) {
       synchronized (ServiceGrpc.class) {
-        if ((getDownloadImageMethod = ServiceGrpc.getDownloadImageMethod) == null) {
-          ServiceGrpc.getDownloadImageMethod = getDownloadImageMethod =
-              io.grpc.MethodDescriptor.<servicestubs.TextMessage, servicestubs.Image>newBuilder()
+        if ((getDownloadFileMethod = ServiceGrpc.getDownloadFileMethod) == null) {
+          ServiceGrpc.getDownloadFileMethod = getDownloadFileMethod =
+              io.grpc.MethodDescriptor.<servicestubs.TextMessage, servicestubs.DownloadedFile>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "downloadImage"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "downloadFile"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   servicestubs.TextMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  servicestubs.Image.getDefaultInstance()))
-              .setSchemaDescriptor(new ServiceMethodDescriptorSupplier("downloadImage"))
+                  servicestubs.DownloadedFile.getDefaultInstance()))
+              .setSchemaDescriptor(new ServiceMethodDescriptorSupplier("downloadFile"))
               .build();
         }
       }
     }
-    return getDownloadImageMethod;
+    return getDownloadFileMethod;
   }
 
   /**
@@ -203,22 +203,22 @@ public final class ServiceGrpc {
     /**
      */
     default void getImageLabels(servicestubs.TextMessage request,
-        io.grpc.stub.StreamObserver<servicestubs.ImageLabels> responseObserver) {
+        io.grpc.stub.StreamObserver<servicestubs.FileLabels> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetImageLabelsMethod(), responseObserver);
     }
 
     /**
      */
     default void getNamesFromDateAndLabel(servicestubs.DatesAndLabel request,
-        io.grpc.stub.StreamObserver<servicestubs.ImageNames> responseObserver) {
+        io.grpc.stub.StreamObserver<servicestubs.FileNames> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetNamesFromDateAndLabelMethod(), responseObserver);
     }
 
     /**
      */
-    default void downloadImage(servicestubs.TextMessage request,
-        io.grpc.stub.StreamObserver<servicestubs.Image> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDownloadImageMethod(), responseObserver);
+    default void downloadFile(servicestubs.TextMessage request,
+        io.grpc.stub.StreamObserver<servicestubs.DownloadedFile> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDownloadFileMethod(), responseObserver);
     }
   }
 
@@ -236,6 +236,12 @@ public final class ServiceGrpc {
     }
 
     public abstract TextMessage submitFile(InputFile request);
+
+    public abstract FileLabels getImageLabels(TextMessage request) throws Exception;
+
+    public abstract FileNames getNamesFromDateAndLabel(DatesAndLabel request) throws Exception;
+
+    public abstract DownloadedFile downloadFile(TextMessage request) throws Exception;
   }
 
   /**
@@ -268,7 +274,7 @@ public final class ServiceGrpc {
     /**
      */
     public void getImageLabels(servicestubs.TextMessage request,
-        io.grpc.stub.StreamObserver<servicestubs.ImageLabels> responseObserver) {
+        io.grpc.stub.StreamObserver<servicestubs.FileLabels> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetImageLabelsMethod(), getCallOptions()), request, responseObserver);
     }
@@ -276,17 +282,17 @@ public final class ServiceGrpc {
     /**
      */
     public void getNamesFromDateAndLabel(servicestubs.DatesAndLabel request,
-        io.grpc.stub.StreamObserver<servicestubs.ImageNames> responseObserver) {
+        io.grpc.stub.StreamObserver<servicestubs.FileNames> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetNamesFromDateAndLabelMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void downloadImage(servicestubs.TextMessage request,
-        io.grpc.stub.StreamObserver<servicestubs.Image> responseObserver) {
+    public void downloadFile(servicestubs.TextMessage request,
+        io.grpc.stub.StreamObserver<servicestubs.DownloadedFile> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getDownloadImageMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getDownloadFileMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -318,23 +324,23 @@ public final class ServiceGrpc {
 
     /**
      */
-    public servicestubs.ImageLabels getImageLabels(servicestubs.TextMessage request) {
+    public servicestubs.FileLabels getImageLabels(servicestubs.TextMessage request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetImageLabelsMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public servicestubs.ImageNames getNamesFromDateAndLabel(servicestubs.DatesAndLabel request) {
+    public servicestubs.FileNames getNamesFromDateAndLabel(servicestubs.DatesAndLabel request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetNamesFromDateAndLabelMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public servicestubs.Image downloadImage(servicestubs.TextMessage request) {
+    public servicestubs.DownloadedFile downloadFile(servicestubs.TextMessage request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getDownloadImageMethod(), getCallOptions(), request);
+          getChannel(), getDownloadFileMethod(), getCallOptions(), request);
     }
   }
 
@@ -367,7 +373,7 @@ public final class ServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<servicestubs.ImageLabels> getImageLabels(
+    public com.google.common.util.concurrent.ListenableFuture<servicestubs.FileLabels> getImageLabels(
         servicestubs.TextMessage request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetImageLabelsMethod(), getCallOptions()), request);
@@ -375,7 +381,7 @@ public final class ServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<servicestubs.ImageNames> getNamesFromDateAndLabel(
+    public com.google.common.util.concurrent.ListenableFuture<servicestubs.FileNames> getNamesFromDateAndLabel(
         servicestubs.DatesAndLabel request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetNamesFromDateAndLabelMethod(), getCallOptions()), request);
@@ -383,17 +389,17 @@ public final class ServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<servicestubs.Image> downloadImage(
+    public com.google.common.util.concurrent.ListenableFuture<servicestubs.DownloadedFile> downloadFile(
         servicestubs.TextMessage request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getDownloadImageMethod(), getCallOptions()), request);
+          getChannel().newCall(getDownloadFileMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_SUBMIT_FILE = 0;
   private static final int METHODID_GET_IMAGE_LABELS = 1;
   private static final int METHODID_GET_NAMES_FROM_DATE_AND_LABEL = 2;
-  private static final int METHODID_DOWNLOAD_IMAGE = 3;
+  private static final int METHODID_DOWNLOAD_FILE = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -418,15 +424,15 @@ public final class ServiceGrpc {
           break;
         case METHODID_GET_IMAGE_LABELS:
           serviceImpl.getImageLabels((servicestubs.TextMessage) request,
-              (io.grpc.stub.StreamObserver<servicestubs.ImageLabels>) responseObserver);
+              (io.grpc.stub.StreamObserver<servicestubs.FileLabels>) responseObserver);
           break;
         case METHODID_GET_NAMES_FROM_DATE_AND_LABEL:
           serviceImpl.getNamesFromDateAndLabel((servicestubs.DatesAndLabel) request,
-              (io.grpc.stub.StreamObserver<servicestubs.ImageNames>) responseObserver);
+              (io.grpc.stub.StreamObserver<servicestubs.FileNames>) responseObserver);
           break;
-        case METHODID_DOWNLOAD_IMAGE:
-          serviceImpl.downloadImage((servicestubs.TextMessage) request,
-              (io.grpc.stub.StreamObserver<servicestubs.Image>) responseObserver);
+        case METHODID_DOWNLOAD_FILE:
+          serviceImpl.downloadFile((servicestubs.TextMessage) request,
+              (io.grpc.stub.StreamObserver<servicestubs.DownloadedFile>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -458,22 +464,22 @@ public final class ServiceGrpc {
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               servicestubs.TextMessage,
-              servicestubs.ImageLabels>(
+              servicestubs.FileLabels>(
                 service, METHODID_GET_IMAGE_LABELS)))
         .addMethod(
           getGetNamesFromDateAndLabelMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               servicestubs.DatesAndLabel,
-              servicestubs.ImageNames>(
+              servicestubs.FileNames>(
                 service, METHODID_GET_NAMES_FROM_DATE_AND_LABEL)))
         .addMethod(
-          getDownloadImageMethod(),
+          getDownloadFileMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               servicestubs.TextMessage,
-              servicestubs.Image>(
-                service, METHODID_DOWNLOAD_IMAGE)))
+              servicestubs.DownloadedFile>(
+                service, METHODID_DOWNLOAD_FILE)))
         .build();
   }
 
@@ -525,7 +531,7 @@ public final class ServiceGrpc {
               .addMethod(getSubmitFileMethod())
               .addMethod(getGetImageLabelsMethod())
               .addMethod(getGetNamesFromDateAndLabelMethod())
-              .addMethod(getDownloadImageMethod())
+              .addMethod(getDownloadFileMethod())
               .build();
         }
       }

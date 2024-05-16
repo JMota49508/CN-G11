@@ -1,4 +1,4 @@
-package grpcclientapp.operations;
+package grpcclientapp;
 
 import java.io.InputStream;
 import java.util.Date;

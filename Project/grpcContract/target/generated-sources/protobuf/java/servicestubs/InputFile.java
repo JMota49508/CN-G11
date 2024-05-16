@@ -17,7 +17,7 @@ private static final long serialVersionUID = 0L;
   }
   private InputFile() {
     contentType_ = "";
-    image_ = com.google.protobuf.ByteString.EMPTY;
+    file_ = com.google.protobuf.ByteString.EMPTY;
     fileName_ = "";
   }
 
@@ -84,15 +84,15 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int IMAGE_FIELD_NUMBER = 2;
-  private com.google.protobuf.ByteString image_;
+  public static final int FILE_FIELD_NUMBER = 2;
+  private com.google.protobuf.ByteString file_;
   /**
-   * <code>bytes image = 2;</code>
-   * @return The image.
+   * <code>bytes file = 2;</code>
+   * @return The file.
    */
   @java.lang.Override
-  public com.google.protobuf.ByteString getImage() {
-    return image_;
+  public com.google.protobuf.ByteString getFile() {
+    return file_;
   }
 
   public static final int FILENAME_FIELD_NUMBER = 3;
@@ -150,8 +150,8 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(contentType_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, contentType_);
     }
-    if (!image_.isEmpty()) {
-      output.writeBytes(2, image_);
+    if (!file_.isEmpty()) {
+      output.writeBytes(2, file_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(fileName_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 3, fileName_);
@@ -168,9 +168,9 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(contentType_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, contentType_);
     }
-    if (!image_.isEmpty()) {
+    if (!file_.isEmpty()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBytesSize(2, image_);
+        .computeBytesSize(2, file_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(fileName_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, fileName_);
@@ -192,8 +192,8 @@ private static final long serialVersionUID = 0L;
 
     if (!getContentType()
         .equals(other.getContentType())) return false;
-    if (!getImage()
-        .equals(other.getImage())) return false;
+    if (!getFile()
+        .equals(other.getFile())) return false;
     if (!getFileName()
         .equals(other.getFileName())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
@@ -209,8 +209,8 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + CONTENTTYPE_FIELD_NUMBER;
     hash = (53 * hash) + getContentType().hashCode();
-    hash = (37 * hash) + IMAGE_FIELD_NUMBER;
-    hash = (53 * hash) + getImage().hashCode();
+    hash = (37 * hash) + FILE_FIELD_NUMBER;
+    hash = (53 * hash) + getFile().hashCode();
     hash = (37 * hash) + FILENAME_FIELD_NUMBER;
     hash = (53 * hash) + getFileName().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
@@ -343,7 +343,7 @@ private static final long serialVersionUID = 0L;
       super.clear();
       contentType_ = "";
 
-      image_ = com.google.protobuf.ByteString.EMPTY;
+      file_ = com.google.protobuf.ByteString.EMPTY;
 
       fileName_ = "";
 
@@ -374,7 +374,7 @@ private static final long serialVersionUID = 0L;
     public servicestubs.InputFile buildPartial() {
       servicestubs.InputFile result = new servicestubs.InputFile(this);
       result.contentType_ = contentType_;
-      result.image_ = image_;
+      result.file_ = file_;
       result.fileName_ = fileName_;
       onBuilt();
       return result;
@@ -428,8 +428,8 @@ private static final long serialVersionUID = 0L;
         contentType_ = other.contentType_;
         onChanged();
       }
-      if (other.getImage() != com.google.protobuf.ByteString.EMPTY) {
-        setImage(other.getImage());
+      if (other.getFile() != com.google.protobuf.ByteString.EMPTY) {
+        setFile(other.getFile());
       }
       if (!other.getFileName().isEmpty()) {
         fileName_ = other.fileName_;
@@ -467,7 +467,7 @@ private static final long serialVersionUID = 0L;
               break;
             } // case 10
             case 18: {
-              image_ = input.readBytes();
+              file_ = input.readBytes();
 
               break;
             } // case 18
@@ -568,36 +568,36 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.protobuf.ByteString image_ = com.google.protobuf.ByteString.EMPTY;
+    private com.google.protobuf.ByteString file_ = com.google.protobuf.ByteString.EMPTY;
     /**
-     * <code>bytes image = 2;</code>
-     * @return The image.
+     * <code>bytes file = 2;</code>
+     * @return The file.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString getImage() {
-      return image_;
+    public com.google.protobuf.ByteString getFile() {
+      return file_;
     }
     /**
-     * <code>bytes image = 2;</code>
-     * @param value The image to set.
+     * <code>bytes file = 2;</code>
+     * @param value The file to set.
      * @return This builder for chaining.
      */
-    public Builder setImage(com.google.protobuf.ByteString value) {
+    public Builder setFile(com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      image_ = value;
+      file_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>bytes image = 2;</code>
+     * <code>bytes file = 2;</code>
      * @return This builder for chaining.
      */
-    public Builder clearImage() {
+    public Builder clearFile() {
       
-      image_ = getDefaultInstance().getImage();
+      file_ = getDefaultInstance().getFile();
       onChanged();
       return this;
     }

@@ -20,10 +20,10 @@ public interface InputFileOrBuilder extends
       getContentTypeBytes();
 
   /**
-   * <code>bytes image = 2;</code>
-   * @return The image.
+   * <code>bytes file = 2;</code>
+   * @return The file.
    */
-  com.google.protobuf.ByteString getImage();
+  com.google.protobuf.ByteString getFile();
 
   /**
    * <code>string fileName = 3;</code>

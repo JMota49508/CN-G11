@@ -23,7 +23,8 @@ public class Client {
     public static void main(String[] args) {
         try {
             if (args.length == 2) {
-                svcIP = args[0]; svcPort = Integer.parseInt(args[1]);
+                svcIP = args[0];
+                svcPort = Integer.parseInt(args[1]);
             }
             System.out.println("connect to " + svcIP + ":" + svcPort);
             channel = ManagedChannelBuilder.forAddress(svcIP, svcPort)
@@ -41,14 +42,20 @@ public class Client {
                     int option = Menu();
                     switch (option) {
                         case 1:
-                            submitFileCall();  break;
+                            submitFileCall();
+                            break;
                         case 2:
-                            getImageLabelsCall(); break;
+                            getImageLabelsCall();
+                            break;
                         case 3:
-                            getNamesFromDateAndLabelCall(); break;
+                            getNamesFromDateAndLabelCall();
+                            break;
                         case 4:
-                            downloadImageCall(); break;
-                        case 99:  System.exit(0);
+                            downloadImageCall();
+                            break;
+                        case 99:
+                            end = true;
+                            break;
                     }
                 } catch (Exception ex) {
                     System.out.println("Execution call Error  !");

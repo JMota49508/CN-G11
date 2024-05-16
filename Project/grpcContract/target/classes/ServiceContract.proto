@@ -8,24 +8,24 @@ package grpcservice; // package do proto
 // Service contract operations 
 service Service {
   rpc submitFile(InputFile) returns (TextMessage);
-  rpc getImageLabels(TextMessage) returns (ImageLabels);
-  rpc getNamesFromDateAndLabel(DatesAndLabel) returns (ImageNames);
-  rpc downloadImage(TextMessage) returns (Image);
+  rpc getImageLabels(TextMessage) returns (FileLabels);
+  rpc getNamesFromDateAndLabel(DatesAndLabel) returns (FileNames);
+  rpc downloadFile(TextMessage) returns (DownloadedFile);
 }
 
 message TextMessage {string txt = 1;}
 
 message InputFile {
   string contentType = 1;
-  bytes image = 2;
+  bytes file = 2;
   string fileName = 3;
 }
 
-message ImageLabels {
+message FileLabels {
   repeated string labels = 1;
 }
 
-message ImageNames {
+message FileNames {
   repeated string names = 1;
 }
 
@@ -35,6 +35,6 @@ message DatesAndLabel {
   string label = 3;
 }
 
-message Image {
-  bytes image = 1;
+message DownloadedFile {
+  bytes file = 1;
 }
