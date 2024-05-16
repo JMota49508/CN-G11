@@ -5,7 +5,16 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/grpcClientApp/pom.xml" />
+        <option value="$PROJECT_DIR$/grpcContract/pom.xml" />
+        <option value="$PROJECT_DIR$/grpcServerApp/pom.xml" />
+        <option value="$PROJECT_DIR$/grpcService/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/grpcService/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="openjdk-21" project-jdk-type="JavaSDK" />

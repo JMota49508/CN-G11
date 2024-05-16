@@ -6,8 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="CN-StorageBaseOperations" />
+        <module name="grpcContract" />
+        <module name="grpcClientApp" />
+        <module name="grpcServerApp" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CN-StorageBaseOperations" target="11" />
+      <module name="CN-TrabalhoFinal" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
