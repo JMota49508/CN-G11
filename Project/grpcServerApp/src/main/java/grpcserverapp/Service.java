@@ -63,10 +63,10 @@ public class Service extends ServiceGrpc.ServiceImplBase {
 
             TextMessage response = TextMessage.newBuilder().setTxt(message).build();
 
+            uploadFileToBucket(fileContent, contentType, blobName);
+
             TopicName topicName = TopicName.ofProjectTopicName("CN2324-T1-G11", "image-processor");
             Publisher publisher = Publisher.newBuilder(topicName).build();
-
-            uploadFileToBucket(fileContent, contentType, blobName);
 
             ByteString data = ByteString.copyFromUtf8(message);
             PubsubMessage pubSubMessage = PubsubMessage.newBuilder()
@@ -78,6 +78,8 @@ public class Service extends ServiceGrpc.ServiceImplBase {
             String msgId = future.get();
             System.out.println("Message published with ID: " + msgId);
             publisher.shutdown();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,6 +134,7 @@ public class Service extends ServiceGrpc.ServiceImplBase {
         while ((limit = input.read(buffer)) >= 0) {
             writer.write(ByteBuffer.wrap(buffer, 0, limit));
         }
+        writer.close();
     }
 
     private static String insertDocuments(String blobName, String fileName, Firestore db, List<String> labels) throws Exception {
