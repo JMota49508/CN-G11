@@ -1,5 +1,3 @@
-package grpcserverapp;
-
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
 

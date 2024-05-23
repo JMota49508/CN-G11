@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/grpcContract/pom.xml" />
         <option value="$PROJECT_DIR$/grpcServerApp/pom.xml" />
         <option value="$PROJECT_DIR$/grpcService/pom.xml" />
+        <option value="$PROJECT_DIR$/LabelsApp/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

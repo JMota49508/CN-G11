@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="grpcContract" />
         <module name="grpcClientApp" />
+        <module name="LabelsApp" />
         <module name="grpcServerApp" />
       </profile>
     </annotationProcessing>

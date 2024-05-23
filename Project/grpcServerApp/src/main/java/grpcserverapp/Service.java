@@ -4,12 +4,16 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.WriteChannel;
 import com.google.cloud.firestore.*;
+import com.google.cloud.pubsub.v1.Publisher;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import com.google.protobuf.ByteString;
+import com.google.pubsub.v1.PubsubMessage;
+import com.google.pubsub.v1.TopicName;
+import io.grpc.stub.StreamObserver;
 import servicestubs.*;
 
 import java.io.ByteArrayInputStream;
@@ -44,7 +48,7 @@ public class Service extends ServiceGrpc.ServiceImplBase {
     }
 
     @Override
-    public TextMessage submitFile(InputFile request) {
+    public void submitFile(InputFile request, StreamObserver<TextMessage> responseObserver) {
         try {
             // get the file content
             byte[] fileContent = request.getFile().toByteArray();
@@ -55,13 +59,27 @@ public class Service extends ServiceGrpc.ServiceImplBase {
             // create blob name
             String blobName = UUID.randomUUID().toString();
 
-            uploadFiletoBucket(fileContent, contentType, blobName);
+            String message = "File ID: " + bucketName + "-" + blobName;
 
-            List<String> labels = Labels.detectLabels("gs://" + bucketName + "/" + blobName);
-            String blobId = insertDocuments(blobName, fileName, db, labels);
-            return TextMessage.newBuilder().setTxt(blobId).build();
+            TextMessage response = TextMessage.newBuilder().setTxt(message).build();
+
+            TopicName topicName = TopicName.ofProjectTopicName("CN2324-T1-G11", "image-processor");
+            Publisher publisher = Publisher.newBuilder(topicName).build();
+
+            uploadFileToBucket(fileContent, contentType, blobName);
+
+            ByteString data = ByteString.copyFromUtf8(message);
+            PubsubMessage pubSubMessage = PubsubMessage.newBuilder()
+                    .setData(data)
+                    .putAttributes("bucketName", bucketName)
+                    .putAttributes("blobName", blobName)
+                    .build();
+            ApiFuture<String> future = publisher.publish(pubSubMessage);
+            String msgId = future.get();
+            System.out.println("Message published with ID: " + msgId);
+            publisher.shutdown();
         } catch (Exception e) {
-            return TextMessage.newBuilder().setTxt("Error: " + e.getMessage()).build();
+            e.printStackTrace();
         }
     }
 
@@ -71,9 +89,8 @@ public class Service extends ServiceGrpc.ServiceImplBase {
         ApiFuture<DocumentSnapshot> future = docRef.get();
         DocumentSnapshot document = future.get();
         File file = document.toObject(File.class);
-        List<String> labels = Translate.translateLabels(file.labels, "en", "pt");
         FileLabels.Builder labelsBuilder = FileLabels.newBuilder();
-        for (String label : labels) {
+        for (String label : file.labels) {
             labelsBuilder.addLabels(label);
         }
         return labelsBuilder.build();
@@ -83,7 +100,7 @@ public class Service extends ServiceGrpc.ServiceImplBase {
     public FileNames getNamesFromDateAndLabel(DatesAndLabel request) throws Exception {
         String initDate = request.getInitDate();
         String finalDate = request.getFinalDate();
-        String label = Translate.translateLine(request.getLabel(), "pt", "en");
+        String label = request.getLabel();
         Query query = db.collection("image-storage")
                 .whereGreaterThan("creationDate", Timestamp.from(formatter.parse(initDate).toInstant()))
                 .whereLessThan("creationDate", Timestamp.from(formatter.parse(finalDate).toInstant()))
@@ -105,7 +122,7 @@ public class Service extends ServiceGrpc.ServiceImplBase {
         return DownloadedFile.newBuilder().setFile(ByteString.copyFrom(content)).build();
     }
 
-    private static void uploadFiletoBucket(byte[] fileContent, String contentType, String blobName) throws IOException {
+    private static void uploadFileToBucket(byte[] fileContent, String contentType, String blobName) throws IOException {
         BlobId blobId = BlobId.of(bucketName, blobName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
         WriteChannel writer = storage.writer(blobInfo);
@@ -129,7 +146,7 @@ public class Service extends ServiceGrpc.ServiceImplBase {
         return file.id;
     }
 
-    private static Date getCurrentDate() throws Exception {
+    public static Date getCurrentDate() throws Exception {
         LocalDate currentDate = LocalDate.now();
         Date currentDateAsDate = java.sql.Date.valueOf(currentDate);
         String strDate = formatter.format(currentDateAsDate);

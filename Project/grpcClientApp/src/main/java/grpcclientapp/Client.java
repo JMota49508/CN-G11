@@ -23,6 +23,7 @@ public class Client {
     private static int svcPort = 8000;
     private static ManagedChannel channel;
     private static ServiceGrpc.ServiceBlockingStub blockingStub;
+    private static ServiceGrpc.ServiceStub nonBlockingStub;
     private final static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -39,6 +40,7 @@ public class Client {
                     .usePlaintext()
                     .build();
             blockingStub = ServiceGrpc.newBlockingStub(channel);
+            nonBlockingStub = ServiceGrpc.newStub(channel);
             // Call service operations for example ping server
             boolean end = false;
             while (!end) {
@@ -77,14 +79,22 @@ public class Client {
     static void submitFileCall() throws IOException {
         String fileName = read("Enter the name of the file you want to upload: ", scanner);
         SimpleFile fileBytes = readFileBytes(fileName);
-        TextMessage blobId = blockingStub.submitFile(InputFile.newBuilder()
+        SubmitFileStream response = new SubmitFileStream();
+        nonBlockingStub.submitFile(InputFile.newBuilder()
                 .setFile(ByteString.copyFrom(fileBytes.bytes))
                 .setContentType(fileBytes.contentType)
                 .setFileName(fileName)
-                .build()
+                .build(),
+                response
         );
-        System.out.println("File was submitted successfully!");
-        System.out.println("File Id: " + blobId.getTxt());
+        while (!response.isCompleted()) {
+            System.out.println("Uploading file...");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     static void getImageLabelsCall() {

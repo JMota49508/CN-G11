@@ -235,13 +235,11 @@ public final class ServiceGrpc {
       return ServiceGrpc.bindService(this);
     }
 
-    public abstract TextMessage submitFile(InputFile request);
-
     public abstract FileLabels getImageLabels(TextMessage request) throws Exception;
 
     public abstract FileNames getNamesFromDateAndLabel(DatesAndLabel request) throws Exception;
 
-    public abstract DownloadedFile downloadFile(TextMessage request) throws Exception;
+    public abstract DownloadedFile downloadFile(TextMessage request);
   }
 
   /**
