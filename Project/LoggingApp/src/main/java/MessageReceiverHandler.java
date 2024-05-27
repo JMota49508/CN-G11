@@ -42,8 +42,8 @@ public class MessageReceiverHandler implements MessageReceiver {
 
             Date creationDate = Service.getCurrentDate();
             String entry = "File " + fileName + " was submitted on " + creationDate.toString();
-            LogEntry logEntry = new LogEntry(UUID.randomUUID(), entry);
-            DocumentReference docRef = db.collection("logs").document(logEntry.id);
+            LogEntry logEntry = new LogEntry(entry);
+            DocumentReference docRef = db.collection("logs").document(UUID.randomUUID().toString());
             docRef.set(logEntry);
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -44,11 +44,11 @@ public class MessageReceiverHandler implements MessageReceiver {
             List<String> labelsTranslated = Translate.translateLabels(labels, "en", "pt");
 
             File file = new File();
-            file.id = bucketName + "-" + blobName;
+            String id = bucketName + "-" + blobName;
             file.name = fileName;
             file.labels = labelsTranslated;
             file.creationDate = Service.getCurrentDate();
-            DocumentReference docRef = db.collection("image-storage").document(file.id);
+            DocumentReference docRef = db.collection("image-storage").document(id);
             docRef.set(file);
         } catch (Exception ex) {
             ex.printStackTrace();

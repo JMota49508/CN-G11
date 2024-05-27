@@ -132,7 +132,7 @@ public class Service extends ServiceGrpc.ServiceImplBase {
     @Override
     public void downloadFile(TextMessage request, StreamObserver<DownloadedFile> responseObserver) {
         String id = request.getTxt();
-        String blobName = id.split(bucketName+ "-")[1];
+        String blobName = id.split(bucketName + "-")[1];
         BlobId blobId = BlobId.of(bucketName, blobName);
         Blob blob = storage.get(blobId);
         byte[] content = blob.getContent();
@@ -153,61 +153,10 @@ public class Service extends ServiceGrpc.ServiceImplBase {
         writer.close();
     }
 
-    private static String insertDocuments(String blobName, String fileName, Firestore db, List<String> labels) throws Exception {
-        CollectionReference colRef = db.collection("image-storage");
-        File file = new File();
-        file.id = bucketName + "-" + blobName;
-        file.name = fileName;
-        file.labels = labels;
-        file.creationDate = getCurrentDate();
-        DocumentReference docRef = colRef.document(file.id);
-        docRef.set(file);
-        return file.id;
-    }
-
     public static Date getCurrentDate() throws Exception {
         LocalDate currentDate = LocalDate.now();
         Date currentDateAsDate = java.sql.Date.valueOf(currentDate);
         String strDate = formatter.format(currentDateAsDate);
         return formatter.parse(strDate);
     }
-
-    /*
-    public void downloadBlobFromBucket() throws IOException {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("The name of Bucket? ");
-        String bucketName = scan.nextLine();
-        System.out.println("The name of Blob? ");
-        String blobName = scan.nextLine();
-        System.out.println("What is the file pathname for downloading the Blob? ");
-        String absFileName = scan.nextLine();
-        Path downloadTo = Paths.get(absFileName);
-        //System.out.println("download to: "+downloadTo);
-        BlobId blobId = BlobId.of(bucketName, blobName);
-        Path downloadTo = Paths.get(absFileName);
-        Blob blob = storage.get(blobId);
-        if (blob == null) {
-            System.out.println("No such Blob exists !");
-            return;
-        }
-        PrintStream writeTo = new PrintStream(Files.newOutputStream(downloadTo));
-        if (blob.getSize() < 1_000_000) {
-            // Blob is small read all its content in one request
-            byte[] content = blob.getContent();
-            writeTo.write(content);
-        } else {
-            // When Blob size is big or unknown use the blob's channel reader.
-            try (ReadChannel reader = blob.reader()) {
-                WritableByteChannel channel = Channels.newChannel(writeTo);
-                ByteBuffer bytes = ByteBuffer.allocate(64 * 1024);
-                while (reader.read(bytes) > 0) {
-                    bytes.flip();
-                    channel.write(bytes);
-                    bytes.clear();
-                }
-            }
-        }
-        writeTo.close();
-        System.out.println("Blob " + blobName + " downloaded to " + downloadTo);
-    }*/
 }
