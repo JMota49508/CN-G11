@@ -62,7 +62,7 @@ public class Service extends ServiceGrpc.ServiceImplBase {
             // create blob name
             String blobName = UUID.randomUUID().toString();
 
-            String message = "File ID: " + bucketName + "-" + blobName;
+            String message = "File uploaded with ID: " + bucketName + "-" + blobName;
 
             TextMessage response = TextMessage.newBuilder().setTxt(message).build();
 
@@ -76,6 +76,7 @@ public class Service extends ServiceGrpc.ServiceImplBase {
                     .setData(data)
                     .putAttributes("bucketName", bucketName)
                     .putAttributes("blobName", blobName)
+                    .putAttributes("fileName", fileName)
                     .build();
             ApiFuture<String> future = publisher.publish(pubSubMessage);
             String msgId = future.get();

@@ -9,7 +9,7 @@ public class SubmitFileStream implements StreamObserver<TextMessage> {
 
     @Override
     public void onNext(TextMessage value) {
-        System.out.println("Message: " + value);
+        System.out.println(value.getTxt());
     }
 
     @Override

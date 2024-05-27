@@ -30,6 +30,7 @@ public class LabelsApp {
             System.exit(-1);
         }
         Subscriber subscriber = subscribeMessages();
+        System.out.println("LabelsApp connected in port: 8000");
         while (true) {
             Thread.sleep(1000);
         }

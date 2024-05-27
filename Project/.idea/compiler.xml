@@ -10,6 +10,7 @@
         <module name="grpcClientApp" />
         <module name="LabelsApp" />
         <module name="grpcServerApp" />
+        <module name="LoggingApp" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

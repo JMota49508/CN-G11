@@ -32,19 +32,20 @@ public class MessageReceiverHandler implements MessageReceiver {
     public void receiveMessage(PubsubMessage pubsubMessage, AckReplyConsumer ackReplyConsumer) {
         try {
             System.out.println("Message (Id:" + pubsubMessage.getMessageId() + " Data:" + pubsubMessage.getData().toStringUtf8() + ")");
-            Map<String, String> atribs = pubsubMessage.getAttributesMap();
-            for (String key : atribs.keySet())
-                System.out.println("Msg Attribute:(" + key + ", " + atribs.get(key) + ")");
+            Map<String, String> attributes = pubsubMessage.getAttributesMap();
+            for (String key : attributes.keySet())
+                System.out.println("Msg Attribute:(" + key + ", " + attributes.get(key) + ")");
             ackReplyConsumer.ack();
-            String bucketName = atribs.get("bucketName");
-            String blobName = atribs.get("blobName");
+            String bucketName = attributes.get("bucketName");
+            String blobName = attributes.get("blobName");
+            String fileName = attributes.get("fileName");
 
             List<String> labels = Labels.detectLabels("gs://" + bucketName + "/" + blobName);
             List<String> labelsTranslated = Translate.translateLabels(labels, "en", "pt");
 
             File file = new File();
             file.id = bucketName + "-" + blobName;
-            file.name = blobName;
+            file.name = fileName;
             file.labels = labelsTranslated;
             file.creationDate = Service.getCurrentDate();
             DocumentReference docRef = db.collection("image-storage").document(file.id);
