@@ -234,12 +234,6 @@ public final class ServiceGrpc {
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return ServiceGrpc.bindService(this);
     }
-
-    public abstract FileLabels getImageLabels(TextMessage request) throws Exception;
-
-    public abstract FileNames getNamesFromDateAndLabel(DatesAndLabel request) throws Exception;
-
-    public abstract DownloadedFile downloadFile(TextMessage request);
   }
 
   /**

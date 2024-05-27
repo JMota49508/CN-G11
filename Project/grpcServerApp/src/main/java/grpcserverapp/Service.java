@@ -20,12 +20,15 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 public class Service extends ServiceGrpc.ServiceImplBase {
 
@@ -86,42 +89,54 @@ public class Service extends ServiceGrpc.ServiceImplBase {
     }
 
     @Override
-    public FileLabels getImageLabels(TextMessage request) throws Exception {
-        DocumentReference docRef = db.collection("image-storage").document(request.getTxt());
-        ApiFuture<DocumentSnapshot> future = docRef.get();
-        DocumentSnapshot document = future.get();
-        File file = document.toObject(File.class);
-        FileLabels.Builder labelsBuilder = FileLabels.newBuilder();
-        for (String label : file.labels) {
-            labelsBuilder.addLabels(label);
+    public void getImageLabels(TextMessage request, StreamObserver<FileLabels> responseObserver) {
+        try {
+            DocumentReference docRef = db.collection("image-storage").document(request.getTxt());
+            ApiFuture<DocumentSnapshot> future = docRef.get();
+            DocumentSnapshot document = future.get();
+            File file = document.toObject(File.class);
+            FileLabels.Builder labelsBuilder = FileLabels.newBuilder();
+            for (String label : file.labels) {
+                labelsBuilder.addLabels(label);
+            }
+            responseObserver.onNext(labelsBuilder.build());
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return labelsBuilder.build();
     }
 
     @Override
-    public FileNames getNamesFromDateAndLabel(DatesAndLabel request) throws Exception {
-        String initDate = request.getInitDate();
-        String finalDate = request.getFinalDate();
-        String label = request.getLabel();
-        Query query = db.collection("image-storage")
-                .whereGreaterThan("creationDate", Timestamp.from(formatter.parse(initDate).toInstant()))
-                .whereLessThan("creationDate", Timestamp.from(formatter.parse(finalDate).toInstant()))
-                .whereArrayContains("labels", label);
-        ApiFuture<QuerySnapshot> querySnapshot = query.get();
-        FileNames.Builder namesBuilder = FileNames.newBuilder();
-        for (DocumentSnapshot doc : querySnapshot.get().getDocuments()) {
-            namesBuilder.addNames(String.valueOf(doc.get("name")));
+    public void getNamesFromDateAndLabel(DatesAndLabel request, StreamObserver<FileNames> responseObserver) {
+        try {
+            String initDate = request.getInitDate();
+            String finalDate = request.getFinalDate();
+            String label = new String(Base64.getDecoder().decode(request.getLabel()), StandardCharsets.UTF_8);
+            Query query = db.collection("image-storage")
+                    .whereGreaterThan("creationDate", Timestamp.from(formatter.parse(initDate).toInstant()))
+                    .whereLessThan("creationDate", Timestamp.from(formatter.parse(finalDate).toInstant()))
+                    .whereArrayContains("labels", label);
+            ApiFuture<QuerySnapshot> querySnapshot = query.get();
+            FileNames.Builder namesBuilder = FileNames.newBuilder();
+            for (DocumentSnapshot doc : querySnapshot.get().getDocuments()) {
+                namesBuilder.addNames(String.valueOf(doc.get("name")));
+            }
+            responseObserver.onNext(namesBuilder.build());
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return namesBuilder.build();
     }
 
     @Override
-    public DownloadedFile downloadFile(TextMessage request) {
+    public void downloadFile(TextMessage request, StreamObserver<DownloadedFile> responseObserver) {
         String id = request.getTxt();
-        BlobId blobId = BlobId.of(bucketName, id.split("-")[1]);
+        String blobName = id.split(bucketName+ "-")[1];
+        BlobId blobId = BlobId.of(bucketName, blobName);
         Blob blob = storage.get(blobId);
         byte[] content = blob.getContent();
-        return DownloadedFile.newBuilder().setFile(ByteString.copyFrom(content)).build();
+        responseObserver.onNext(DownloadedFile.newBuilder().setFile(ByteString.copyFrom(content)).build());
+        responseObserver.onCompleted();
     }
 
     private static void uploadFileToBucket(byte[] fileContent, String contentType, String blobName) throws IOException {

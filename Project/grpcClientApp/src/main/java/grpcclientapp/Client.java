@@ -12,10 +12,13 @@ import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+
+import static com.fasterxml.jackson.core.JsonEncoding.UTF8;
 
 public class Client {
     // generic ClientApp for Calling a grpc Service
@@ -99,8 +102,7 @@ public class Client {
 
     static void getImageLabelsCall() {
         String docID = read("Enter the document ID to get the labels", scanner);
-        FileLabels labels = blockingStub
-                .getImageLabels(TextMessage
+        FileLabels labels = blockingStub.getImageLabels(TextMessage
                         .newBuilder()
                         .setTxt(docID)
                         .build()
@@ -117,7 +119,7 @@ public class Client {
         String label = read("Enter a label: ", scanner);
         FileNames names = blockingStub.getNamesFromDateAndLabel(DatesAndLabel
                 .newBuilder()
-                .setLabel(label)
+                .setLabel(Base64.getEncoder().encodeToString(label.getBytes(StandardCharsets.UTF_8)))
                 .setFinalDate(finalDate)
                 .setInitDate(initDate).build()
         );
@@ -129,7 +131,7 @@ public class Client {
 
     static void downloadImageCall() {
         String blobId = read("Enter the ID of the file you want to download: ", scanner);
-        String absFileName = read("What is the file pathname for downloading the Blob: ", scanner);
+        String absFileName = read("What is the name you want to give to the Blob you are downloading: ", scanner);
         DownloadedFile file = blockingStub.downloadFile(TextMessage
                 .newBuilder()
                 .setTxt(blobId)
