@@ -6,31 +6,23 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
 public class LoggingApp {
-    private static String svcIP = "localhost";
+    static String PROJECT_ID = "CN2324-T1-G11";
 
-    private static int svcPort = 8000;
+    static String TOPIC_ID = "image-processor";
 
-    private static ManagedChannel channel;
-
-    static String PROJECT_ID;
-
-    static String TOPIC_ID;
-
-    static String SUBSCRIPTION_ID;
+    static String SUBSCRIPTION_ID = "logging-app";
 
     public static void main(String[] args) throws InterruptedException {
-        channel = ManagedChannelBuilder.forAddress(svcIP, svcPort).usePlaintext().build();
-
-        if (args.length > 0) {
+        /*if (args.length > 0) {
             PROJECT_ID = args[0];
             TOPIC_ID = args[1];
             SUBSCRIPTION_ID = args[2];
         } else {
             System.out.println("Usage: LoggingApp <project_id> <topic_id> <subscription_id>");
             System.exit(-1);
-        }
+        }*/
         Subscriber subscriber = subscribeMessages();
-        System.out.println("LoggingApp connected in port: 8000");
+        System.out.println("LoggingApp started");
         while (true) {
             Thread.sleep(1000);
         }

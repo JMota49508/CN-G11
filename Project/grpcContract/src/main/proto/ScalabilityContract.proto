@@ -1,0 +1,19 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+option java_multiple_files = true;
+option java_package = "scalabilitystubs";
+
+package grpcservice; // package do proto
+
+// Service contract operations
+service ScalabilityService {
+  rpc resizeInstance(ResizeRequest) returns (google.protobuf.Empty) { }
+}
+
+message ResizeRequest {
+  string project_id = 1;
+  string zone = 2;
+  string instance_group = 3;
+  int32 size = 4;
+}

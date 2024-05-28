@@ -1,15 +1,12 @@
 package grpcserverapp;
 
-import com.google.auth.oauth2.GoogleCredentials;
 import com.google.api.core.ApiFuture;
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.WriteChannel;
 import com.google.cloud.firestore.*;
 import com.google.cloud.pubsub.v1.Publisher;
-import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
+import com.google.cloud.storage.*;
 import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.TopicName;
@@ -26,9 +23,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Base64;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 public class Service extends ServiceGrpc.ServiceImplBase {
 
@@ -38,7 +33,7 @@ public class Service extends ServiceGrpc.ServiceImplBase {
     private static Firestore db = null;
     private final static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-    public Service(int svcPort) {
+    public Service() {
         try {
             GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
             FirestoreOptions options = FirestoreOptions.newBuilder().setDatabaseId("image-storage")
@@ -47,7 +42,6 @@ public class Service extends ServiceGrpc.ServiceImplBase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Service is available on port:" + svcPort);
     }
 
     @Override
