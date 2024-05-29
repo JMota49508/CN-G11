@@ -1,0 +1,1 @@
+gcloud functions deploy cn-http-functions --project=cn2324-t1-g11 --region=europe-west2 --allow-unauthenticated --entry-point=functionhttp.Entrypoint --no-gen2 --runtime=java11 --trigger-http --source=target/deployment --service-account=cn-2024-storage-1507@cn2324-t1-g11.iam.gserviceaccount.com
