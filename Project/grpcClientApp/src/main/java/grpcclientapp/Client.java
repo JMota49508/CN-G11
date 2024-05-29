@@ -99,7 +99,6 @@ public class Client {
     static void lookUpIpCall() {
         try {
             HttpClient client = HttpClient.newBuilder().build();
-
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(cfURL))
                     .GET()
