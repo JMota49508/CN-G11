@@ -134,7 +134,7 @@ public class Client {
     }
 
     static void resizeServerInstances() {
-        String size = read("Enter a new number of extra instances for the server: ", scanner);
+        String size = read("Enter number of extra instances for the server: ", scanner);
         ResizeRequest request = ResizeRequest.newBuilder()
                 .setProjectId("cn2324-t1-g11")
                 .setZone("europe-west2-c")
@@ -145,7 +145,7 @@ public class Client {
     }
 
     static void resizeAppInstances() {
-        String size = read("Enter a new number of instances for the LabelsApp: ", scanner);
+        String size = read("Enter number of instances for the LabelsApp: ", scanner);
         ResizeRequest request = ResizeRequest.newBuilder()
                 .setProjectId("cn2324-t1-g11")
                 .setZone("europe-west2-c")
@@ -156,7 +156,7 @@ public class Client {
     }
 
     static void submitFileCall() throws IOException {
-        String fileName = read("Enter the name of the file you want to upload: ", scanner);
+        String fileName = read("Enter the path of the file you want to upload: ", scanner);
         SimpleFile fileBytes = readFileBytes(fileName);
         SubmitFileStream response = new SubmitFileStream();
         nonBlockingStub.submitFile(InputFile.newBuilder()
@@ -166,14 +166,14 @@ public class Client {
                         .build(),
                 response
         );
-        /*while (!response.isCompleted()) {
-            System.out.println("Uploading file...");
+        System.out.println("Uploading file...");
+        while(!response.isCompleted()) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
     }
 
     static void getImageLabelsCall() {
@@ -207,13 +207,14 @@ public class Client {
 
     static void downloadImageCall() {
         String blobId = read("Enter the ID of the file you want to download: ", scanner);
-        String absFileName = read("What is the name you want to give to the Blob you are downloading: ", scanner);
+        String filePath = read("Enter the path to where you want to download the image: ", scanner);
+        String absFileName = read("What is the name you want to give to the image you are downloading: ", scanner);
         DownloadedFile file = blockingStub.downloadFile(TextMessage
                 .newBuilder()
                 .setTxt(blobId)
                 .build()
         );
-        Path downloadTo = Paths.get(absFileName);
+        Path downloadTo = Paths.get(filePath + "\\" + absFileName + ".jpg");
         try {
             PrintStream writeTo = new PrintStream(Files.newOutputStream(downloadTo));
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(file.getFile().toByteArray());
@@ -247,7 +248,7 @@ public class Client {
             System.out.println();
             System.out.println("Choose an Option");
             op = scan.nextInt();
-        } while (!((op >= 1 && op <= 6) || op == 99));
+        } while (!((op >= 1 && op <= 7) || op == 99));
         return op;
     }
 
@@ -256,9 +257,11 @@ public class Client {
         return input.nextLine();
     }
 
-    private static SimpleFile readFileBytes(String fileName) throws IOException {
-        Path path = Paths.get(fileName);
+    private static SimpleFile readFileBytes(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
         String contentType = Files.probeContentType(path);
+        String[] filePathSplit= path.getFileName().toString().split("\\.");
+        String fileName = filePathSplit[0] + "." + filePathSplit[1];
         byte[] input = Files.readAllBytes(path);
         return new SimpleFile(fileName, input, contentType);
     }
