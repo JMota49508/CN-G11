@@ -134,7 +134,7 @@ public class Client {
     }
 
     static void resizeServerInstances() {
-        String size = read("Enter number of extra instances for the server: ", scanner);
+        String size = read("Enter number instances for the server: ", scanner);
         ResizeRequest request = ResizeRequest.newBuilder()
                 .setProjectId("cn2324-t1-g11")
                 .setZone("europe-west2-c")
